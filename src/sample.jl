@@ -12,6 +12,7 @@ function _sample(
     kwargs...,
 )
 
+    println("inside of custom sampler")
     grouping_function = partition_by == "Column" ? v -> last(v) : v -> first(v)
     group_sorting_function = partition_by == "Column" ? v -> first(v) : v -> last(v)
     ψ, ψψ = symmetric_gauge(ψ)
