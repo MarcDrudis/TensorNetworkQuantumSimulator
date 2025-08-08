@@ -1,6 +1,9 @@
 name = "TensorNetworkQuantumSimulator"
 uuid = "4de3b72a-362e-43dd-83ff-3f381eda9f9c"
-authors = ["JoeyT1994 <jtindall@flatironinstitute.org>", "MSRudolph <manuel.rudolph@web.de>"]
+authors = [
+  "JoeyT1994 <jtindall@flatironinstitute.org>",
+  "MSRudolph <manuel.rudolph@web.de>",
+]
 version = "0.0.1"
 
 [deps]
@@ -24,6 +27,7 @@ SimpleGraphConverter = "205b04f2-f585-4877-a239-566270b3f673"
 StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 Tables = "bd369af6-aec1-5ad0-b16a-f7cc5008161c"
 TensorOperations = "6aa20fa7-93e2-5fca-9bc0-fbd0db3c71a2"
+ProgressBars = "49802e3a-d2f1-5c88-81d8-b72133a6f568"
 
 [compat]
 CSV = "0.10.15"

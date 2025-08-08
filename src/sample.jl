@@ -1,4 +1,5 @@
 using StatsBase
+using ProgressBars
 
 function _sample(
     ψ::ITensorNetwork,
@@ -29,7 +30,8 @@ function _sample(
 
     #Generate the bit_strings moving left to right through the network
     probs_and_bitstrings = NamedTuple[]
-    for j = 1:nsamples
+
+    for j = ProgressBar(1:nsamples)
         p_over_q_approx, logq, bitstring = _get_one_sample(
             norm_MPScache, projected_MPScache, sorted_partitions; projected_message_update_kwargs, kwargs...)
         push!(probs_and_bitstrings, (poverq=p_over_q_approx, logq=logq, bitstring=bitstring))
