@@ -34,7 +34,7 @@ function _sample(
 
     for j = 1:nsamples
         if j%div(nsamples,20)==0
-          println("Thread $(Threads.threadid()) is done by $(round(100*j/nsamples,1))%")
+          println("Thread $(Threads.threadid()) is done by $(100*j/nsamples)%")
         end
         p_over_q_approx, logq, bitstring = _get_one_sample(
             norm_MPScache, projected_MPScache, sorted_partitions; projected_message_update_kwargs, kwargs...)
