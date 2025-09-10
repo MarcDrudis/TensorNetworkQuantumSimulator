@@ -31,7 +31,10 @@ function _sample(
     #Generate the bit_strings moving left to right through the network
     probs_and_bitstrings = NamedTuple[]
 
-    for j = ProgressBar(1:nsamples)
+    for j = 1:nsamples
+        if j%div(nsamples,20)==0
+          println("Thread $(threadid()) is done by $(round(100*j/nsamples,1))%")
+        end
         p_over_q_approx, logq, bitstring = _get_one_sample(
             norm_MPScache, projected_MPScache, sorted_partitions; projected_message_update_kwargs, kwargs...)
         push!(probs_and_bitstrings, (poverq=p_over_q_approx, logq=logq, bitstring=bitstring))
@@ -90,7 +93,7 @@ end
 Take nsamples bitstrings from a 2D open boundary tensornetwork by partitioning it and using boundary MPS algorithm with relevant ranks
 """
 function sample(ψ::ITensorNetwork, nsamples::Int64; kwargs...)
-    println("A")
+    println("B")
     probs_and_bitstrings, _ = _sample(ψ::ITensorNetwork, nsamples::Int64; kwargs...)
     # returns just the bitstrings
     return getindex.(probs_and_bitstrings, :bitstring)
