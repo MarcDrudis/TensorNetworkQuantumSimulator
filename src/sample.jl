@@ -1,6 +1,5 @@
 using StatsBase
 using ProgressBars
-using Threads
 
 function _sample(
     ψ::ITensorNetwork,
