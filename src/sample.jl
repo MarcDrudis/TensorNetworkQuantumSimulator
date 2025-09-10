@@ -1,5 +1,6 @@
 using StatsBase
 using ProgressBars
+using Threads
 
 function _sample(
     ψ::ITensorNetwork,
@@ -12,7 +13,6 @@ function _sample(
     kwargs...,
 )
 
-    println("inside of custom sampler")
     grouping_function = partition_by == "Column" ? v -> last(v) : v -> first(v)
     group_sorting_function = partition_by == "Column" ? v -> first(v) : v -> last(v)
     ψ, ψψ = symmetric_gauge(ψ)
@@ -41,6 +41,41 @@ function _sample(
     return probs_and_bitstrings, ψ
 end
 
+
+
+
+
+# using Threads
+# using ProgressMeter
+#
+# # Preallocate results
+# results = Vector{NamedTuple{(:poverq, :logq, :bitstring), Tuple{Float64, Float64, String}}}(undef, nsamples)
+#
+# # Create a progress bar
+# p = Progress(nsamples, 1; desc="Sampling...")
+#
+# Threads.@threads for j in 1:nsamples
+#     p_over_q_approx, logq, bitstring = _get_one_sample(
+#         norm_MPScache, projected_MPScache, sorted_partitions;
+#         projected_message_update_kwargs, kwargs...)
+#
+#     results[j] = (poverq=p_over_q_approx, logq=logq, bitstring=bitstring)
+#
+#     # Safely update progress bar from each thread
+#     Threads.atomic_add!(p.current, 1)
+# end
+#
+# # Show final progress
+# update!(p, nsamples)
+
+
+
+
+
+
+
+
+
 """
     sample(
         ψ::ITensorNetwork,
@@ -56,6 +91,7 @@ end
 Take nsamples bitstrings from a 2D open boundary tensornetwork by partitioning it and using boundary MPS algorithm with relevant ranks
 """
 function sample(ψ::ITensorNetwork, nsamples::Int64; kwargs...)
+    println("A")
     probs_and_bitstrings, _ = _sample(ψ::ITensorNetwork, nsamples::Int64; kwargs...)
     # returns just the bitstrings
     return getindex.(probs_and_bitstrings, :bitstring)
