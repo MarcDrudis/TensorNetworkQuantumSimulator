@@ -97,7 +97,9 @@ function sample(ψ::ITensorNetwork, nsamples::Int64; kwargs...)
     println("B")
     probs_and_bitstrings, _ = _sample(ψ::ITensorNetwork, nsamples::Int64; kwargs...)
     # returns just the bitstrings
-    return getindex.(probs_and_bitstrings, :bitstring)
+    bitstrings=getindex.(probs_and_bitstrings, :bitstring)
+    println("B")
+    return bitstrings
 end
 
 """
